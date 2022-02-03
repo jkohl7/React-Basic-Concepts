@@ -6,6 +6,7 @@ class NewWord extends Component {
     word: '',
     color: '#000000',
   }
+  
   toggleForm = () => {
     const { showForm } = this.state;
     this.setState({ showForm : !showForm });
