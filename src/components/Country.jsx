@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
-import Medal from './Medal';
 
 class Country extends Component {
-  getMedalsTotal(country, medals) {
-    let sum = 0;
-    medals.forEach(medal => { sum += country[medal.name]; });
-    return sum;
+  state = {
+    name: this.props.country.name,
+    gold: this.props.country.gold,
   }
+  handleIncrement = () => this.setState({ gold: this.state.gold + 1 });
+  handleDecrement = () => this.setState({ gold: this.state.gold - 1 });
   render() { 
-    const { country, medals, onIncrement, onDecrement, onDelete } = this.props;
     return (
       <div className="country">
         <div className="name">
-          { country.name }
-          <span className="badge">
-            { this.getMedalsTotal(country, medals) }
-          </span>
+          { this.state.name }
         </div>
-        { medals.map(medal =>
-          <Medal 
-            key={ medal.id } 
-            country={ country } 
-            medal={ medal } 
-            onIncrement={ onIncrement } 
-            onDecrement={ onDecrement } />
-        ) }
-        <button onClick={() => onDelete(country.id)}>delete</button>
+        <div className="medals">
+          gold medals: { this.state.gold }
+          <button onClick={ this.handleIncrement }>+</button>
+          <button disabled={ this.state.gold === 0 } onClick={ this.handleDecrement }>-</button>
+        </div>
         <hr />
       </div>
     );
